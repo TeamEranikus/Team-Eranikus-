@@ -32,6 +32,8 @@ $RECYCLE.BIN/
 .idea/dictionaries
 .idea/vcs.xml
 .idea/jsLibraryMappings.xml
+.idea/*.*
+
 
 # Sensitive or high-churn files:
 .idea/dataSources.ids
@@ -40,6 +42,7 @@ $RECYCLE.BIN/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+/EscapeCode/EscapeCode.iml
 
 # Gradle:
 .idea/gradle.xml
@@ -71,5 +74,5 @@ fabric.properties
 ### Intellij Patch ###
 # Comment Reason: https://github.com/joeblau/gitignore.io/issues/186#issuecomment-215987721
 
-# /EscapeCode/*.iml
+# *.iml
 # modules.xml
