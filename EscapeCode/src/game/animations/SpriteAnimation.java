@@ -1,4 +1,4 @@
-package sample.animations;
+package game.animations;
 
 import javafx.animation.Interpolator;
 import javafx.animation.Transition;

@@ -1,4 +1,4 @@
-package sample.scenes.demoLevel;
+package game.scenes.demoLevel;
 
 public class DemoController {
 

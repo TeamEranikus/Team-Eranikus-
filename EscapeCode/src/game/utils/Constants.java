@@ -1,4 +1,4 @@
-package sample.utils;
+package game.utils;
 
 public class Constants {
 }

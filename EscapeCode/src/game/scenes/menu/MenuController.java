@@ -1,4 +1,4 @@
-package sample.scenes.menu;
+package game.scenes.menu;
 
 public class MenuController {
 }
