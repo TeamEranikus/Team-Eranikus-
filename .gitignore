@@ -5,8 +5,8 @@
 .mtj.tmp/
 
 Team-Eranikus-/.idea/**
-Team-Eranikus-/out/**
-Team-Eranikus-/*.iml
+Team-Eranikus-/EscapeCode/out/**
+Team-Eranikus-/EscapeCode/*.iml
 
 # Package Files #
 *.jar
