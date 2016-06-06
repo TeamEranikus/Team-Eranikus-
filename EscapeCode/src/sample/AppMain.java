@@ -10,7 +10,11 @@ public class AppMain extends Application {
     public void start(Stage primaryStage) throws Exception{
         Engine engine = new Engine(primaryStage);
         engine.run();
+        // TODO
 
+        for (int i = 0; i < ; i++) {
+            
+        }
     }
 
 
