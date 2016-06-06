@@ -42,6 +42,7 @@ $RECYCLE.BIN/
 .idea/sqlDataSources.xml
 .idea/dynamic.xml
 .idea/uiDesigner.xml
+.idea/*.*
 /EscapeCode/EscapeCode.iml
 /EscapeCode/.idea/*.*
 /EscapeCode/out/*.*
