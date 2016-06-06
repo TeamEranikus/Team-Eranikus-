@@ -43,6 +43,7 @@ $RECYCLE.BIN/
 .idea/dynamic.xml
 .idea/uiDesigner.xml
 /EscapeCode/EscapeCode.iml
+/EscapeCode/.idea/*.*
 
 # Gradle:
 .idea/gradle.xml
