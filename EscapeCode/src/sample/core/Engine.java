@@ -1,4 +1,4 @@
-package game.core;
+package sample.core;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

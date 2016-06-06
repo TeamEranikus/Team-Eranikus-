@@ -1,4 +1,4 @@
-package game.utils;
+package sample.utils;
 
 public class Messages {
 }

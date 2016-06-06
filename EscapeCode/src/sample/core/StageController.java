@@ -1,4 +1,4 @@
-package game.core;
+package sample.core;
 
 public class StageController {
 }

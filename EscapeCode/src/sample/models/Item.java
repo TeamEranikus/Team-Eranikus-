@@ -1,4 +1,4 @@
-package game.models;
+package sample.models;
 
 public abstract class Item {
 }

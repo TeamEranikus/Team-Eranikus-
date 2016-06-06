@@ -1,4 +1,4 @@
-package game.scenes.logIn;
+package sample.scenes.logIn;
 
 public class LogInController {
 }
