@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="930.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.scenes.menu.MenuController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="680.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.scenes.menu.MenuController">
    <children>
-      <ImageView fitHeight="700.0" fitWidth="980.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="707.0" fitWidth="930.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../resources/templates/MenuScreen.png" />
          </image>

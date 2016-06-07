@@ -19,7 +19,7 @@ public class MenuController {
         Stage stage = (Stage)newGameButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../demoLevel/demoScene.fxml"));
         stage.setTitle("Demo Level");
-        stage.setScene(new Scene(root, 1200, 700));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
@@ -27,10 +27,13 @@ public class MenuController {
         Stage stage = (Stage)howToPlayButton.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../howToPlay/howToPlayScene.fxml"));
         stage.setTitle("How to play");
-        stage.setScene(new Scene(root, 1200, 700));
+        stage.setScene(new Scene(root));
         stage.show();
     }
 
     public void onQuitClicked(ActionEvent event) {
+        Stage stage = (Stage)quitButton.getScene().getWindow();
+        stage.close();
+        // should call confirm box? "Are you sure?"
     }
 }

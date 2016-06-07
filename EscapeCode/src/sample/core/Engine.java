@@ -18,6 +18,7 @@ public class Engine {
     public void run() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../scenes/menu/menuScene.fxml"));
         primaryStage.setTitle("Escape code");
+        primaryStage.setResizable(false);
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
