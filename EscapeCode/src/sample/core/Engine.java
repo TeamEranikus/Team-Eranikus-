@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class Engine {
 
-    Stage primaryStage;
+    private Stage primaryStage;
 
     public Engine(Stage primaryStage) {
         this.primaryStage = primaryStage;
@@ -18,7 +18,7 @@ public class Engine {
     public void run() throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("../scenes/menu/menuScene.fxml"));
         primaryStage.setTitle("Escape code");
-        primaryStage.setScene(new Scene(root, 1200, 700));
+        primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
 }
