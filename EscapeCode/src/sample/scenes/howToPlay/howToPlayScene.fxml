@@ -52,7 +52,12 @@
                   <Font size="29.0" />
                </font>
             </Label>
-            <Button fx:id="StartGame" blendMode="DIFFERENCE" layoutX="413.0" layoutY="519.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="58.0" prefWidth="172.0" style="-fx-background-color: #111e1e;" text="Start Game" textFill="#1d989a">
+            <Button fx:id="StartGame" blendMode="DIFFERENCE" layoutX="679.0" layoutY="526.0" mnemonicParsing="false" onAction="#startGame" prefHeight="58.0" prefWidth="172.0" style="-fx-background-color: #111e1e;" text="Start Game" textFill="#1d989a">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
+            <Button fx:id="BackTogame" blendMode="DIFFERENCE" layoutX="173.0" layoutY="526.0" mnemonicParsing="false" onAction="#backToMenu" prefHeight="58.0" prefWidth="172.0" style="-fx-background-color: #111e1e;" text="Back" textFill="#1d989a">
                <font>
                   <Font size="16.0" />
                </font>

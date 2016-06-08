@@ -14,9 +14,21 @@ import java.io.IOException;
 public class HowToPlayController {
     @FXML
     private Button StartGame;
-    public void backToMenu(ActionEvent event) throws IOException {
+
+    @FXML
+    private Button BackTogame;
+
+
+    public void startGame(ActionEvent event) throws IOException {
         Stage stage = (Stage)StartGame.getScene().getWindow();
         Parent root = FXMLLoader.load(getClass().getResource("../demoLevel/demoScene.fxml"));
+        stage.setTitle("Demo Level");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    public void  backToMenu(ActionEvent event) throws IOException {
+        Stage stage = (Stage)StartGame.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("../menu/menuScene.fxml"));
         stage.setTitle("Demo Level");
         stage.setScene(new Scene(root));
         stage.show();
