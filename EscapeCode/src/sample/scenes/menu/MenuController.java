@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import sample.scenes.demoLevel.DemoController;
 
 import java.io.IOException;
 
@@ -22,12 +23,20 @@ public class MenuController {
     @FXML
     private Button quitButton;
 
+    private DemoController controller;
+
     public void onNewGameClicked(ActionEvent event) throws IOException {
         Stage stage = (Stage)newGameButton.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("../demoLevel/demoScene.fxml"));
+        //Parent root = FXMLLoader.load(getClass().getResource("../demoLevel/demoScene.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../demoLevel/demoScene.fxml"));
+        Parent root = loader.load();
+        controller = loader.getController();
+        Scene scene = new Scene(root);
+
         stage.setTitle("Demo Level");
-        stage.setScene(new Scene(root));
+        stage.setScene(scene);
         stage.show();
+        controller.moveCharacter(scene);
     }
 
     public void onHowToPlayClicked(ActionEvent event) throws IOException {
