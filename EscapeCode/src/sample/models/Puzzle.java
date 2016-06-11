@@ -10,11 +10,11 @@ public class Puzzle {
     private String nextClue;
 
 
-    public Puzzle(String question, String correctAnswer, String hint, Image image, String nextClue) {
+    public Puzzle(String question, String correctAnswer, String hint, String imagePath, String nextClue) {
         this.question = question;
         this.correctAnswer = correctAnswer;
         this.hint = hint;
-        this.image = image;
+        this.image = new Image(getClass().getResourceAsStream(imagePath));
         this.nextClue = nextClue;
     }
 
