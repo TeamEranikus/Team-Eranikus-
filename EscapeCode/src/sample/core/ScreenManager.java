@@ -34,15 +34,11 @@ public class ScreenManager {
             origH = contentRootRegion.getPrefHeight();
         }
         Group group = new Group(contentRootRegion);
-
-        //Place the Group in a StackPane, which will keep it centered
         StackPane rootPane = new StackPane();
         rootPane.getChildren().add( group );
         Scene scene = new Scene( rootPane, origW, origH );
-        //Bind the scene's width and height to the scaling parameters on the group
         group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
         group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
-        //Set the scene to the window (stage) and show it
        // primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
