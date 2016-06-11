@@ -39,6 +39,6 @@
             <Font size="17.0" />
          </font>
       </TextField>
-      <Label fx:id="nextClue" layoutX="206.0" layoutY="558.0" prefHeight="32.0" prefWidth="553.0" />
+      <Label fx:id="nextClue" layoutX="206.0" layoutY="558.0" prefHeight="32.0" prefWidth="553.0" visible="false" />
    </children>
 </AnchorPane>

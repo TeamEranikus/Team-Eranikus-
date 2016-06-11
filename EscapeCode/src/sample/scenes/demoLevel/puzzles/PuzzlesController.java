@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import sample.models.Puzzle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,14 +27,19 @@ public class PuzzlesController implements Initializable {
     @FXML
     TextField userAnswer;
 
-    private String correctAnswer;
-    private Image image;
-    private String descriptionText;
-    private String puzzleHint;
+    private static Puzzle puzzle;
+    public static void setPuzzle(Puzzle puzzleToSet){
+        puzzle = puzzleToSet;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.puzzleImage.setImage(puzzle.getImage());
         centerImage();
+        this.hintText.setText(puzzle.getHint());
+        this.description.setText(puzzle.getQuestion());
+        this.nextClue.setText(puzzle.getNextClue());
+
     }
 
     public void giveHint(ActionEvent actionEvent) {
@@ -44,6 +50,7 @@ public class PuzzlesController implements Initializable {
     }
 
     private void centerImage() {
+        Image image = puzzleImage.getImage();
         if (image != null) {
             double width = 0;
             double height = 0;

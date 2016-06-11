@@ -1,20 +1,18 @@
 package sample.models;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.*;
 
-import javafx.scene.image.Image;
+import sample.scenes.demoLevel.puzzles.PuzzlesController;
 import sample.userInterface.Reader;
-import java.util.LinkedList;
 
 public class PuzzleManager {
 
-    private Deque<Puzzle> puzzleQue;
+    private LinkedList<Puzzle> puzzles;
     private Reader reader;
 
 
     public PuzzleManager(Reader reader) {
-        this.puzzleQue = new ArrayDeque<>();
+        this.puzzles = new LinkedList<>();
         this.reader = reader;
     }
 
@@ -26,15 +24,20 @@ public class PuzzleManager {
         }};
         LinkedList<String> puzzles = reader.readPuzzleFile();
         for (String puzzle : puzzles) {
-            String[] line = puzzle.split("\\**");
+            String[] line = puzzle.split("\\*\\*");
             String description = line[0];
             String answer = line[1];
             String hint = line[2];
             String nextClue = line[3];
             Puzzle currentPuzzle = new Puzzle(description,answer, hint,puzzleImages.pop(), nextClue);
-            puzzleQue.push(currentPuzzle);
+            this.puzzles.add(currentPuzzle);
         }
 
+    }
+
+    public void setPuzzle(){
+
+        PuzzlesController.setPuzzle(puzzles.pop());
     }
 
 }
