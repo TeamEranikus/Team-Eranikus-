@@ -16,9 +16,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
 public class DemoController implements Initializable{
 
@@ -93,6 +95,9 @@ public class DemoController implements Initializable{
                 rectangles.add(current);
             }
         }
+        rectangles = rectangles.stream()
+                .sorted((a,b) -> a.getId().compareTo(b.getId()))
+                .collect(Collectors.toCollection(LinkedList<Rectangle> :: new));
         currentPuzzle = getCurrentPuzzleRectangle();
     }
 
@@ -107,6 +112,9 @@ public class DemoController implements Initializable{
     }
 
     private boolean checkForCol(Rectangle current) {
+        if (current.isDisabled()){
+            return false;
+        }
         return current.getBoundsInParent().intersects(imagePlayer.getBoundsInParent());
     }
 
@@ -140,15 +148,19 @@ public class DemoController implements Initializable{
         boolean right = x > 0 ? true : false;
         for (int i = 0; i < Math.abs(x); i++) {
             if (right) {
-                double rightBound = mainCanvas.getLayoutX() + mainCanvas.getWidth();
+                double rightBound = mainCanvas.getLayoutX() + mainCanvas.getWidth() - (imagePlayer.getX()+imagePlayer.getFitWidth());
                 imagePlayer.setLayoutX(imagePlayer.getLayoutX() + 1 > rightBound ?
                         rightBound : imagePlayer.getLayoutX() + 1);
+                Image img = new Image(getClass().getResource("../../resources/templates/emoticon_right.png").toExternalForm());
+                imagePlayer.setImage(img);
 
             } else {
 
                 double leftBound = mainCanvas.getLayoutX();
                 imagePlayer.setLayoutX(imagePlayer.getLayoutX() - 1 < leftBound ?
                         leftBound : imagePlayer.getLayoutX() - 1);
+                Image img = new Image(getClass().getResource("../../resources/templates/emoticon_left.png").toExternalForm());
+                imagePlayer.setImage(img);
             }
         }
     }
@@ -159,7 +171,7 @@ public class DemoController implements Initializable{
         for (int i = 0; i < Math.abs(y); i++) {
             if (down) {
 
-                double downBound = mainCanvas.getLayoutY() + mainCanvas.getHeight();
+                double downBound = mainCanvas.getLayoutY() + mainCanvas.getHeight() - (imagePlayer.getY()+imagePlayer.getFitHeight());
                 imagePlayer.setLayoutY(imagePlayer.getLayoutY() + 1 > downBound ?
                         downBound : imagePlayer.getLayoutY() + 1);
             } else {
