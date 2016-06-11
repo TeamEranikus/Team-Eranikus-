@@ -2,14 +2,15 @@ package sample;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import sample.core.Engine;
+import sample.core.ScreenManager;
+import sample.utils.Constants;
 
 public class AppMain extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Engine engine = new Engine(primaryStage);
-        engine.run();
+       ScreenManager screenManager = new ScreenManager();
+        screenManager.setPrimaryStage(primaryStage, Constants.MENU_FXML_PATH);
     }
 
 
