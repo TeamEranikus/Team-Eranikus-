@@ -15,6 +15,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
 import javafx.scene.media.AudioClip;
+import java.net.URL;
 
 public class Engine{
 
@@ -26,6 +27,11 @@ public class Engine{
     private boolean hasCol = false;
     private AnimationTimer timeline;
     private Sprite sprite;
+
+    private AudioClip iSound0, iSound1, iSound2, iSound3;
+    private URL iAudioFile0, iAudioFile1, iAudioFile2, iAudioFile3;
+
+
 
     public Engine(Sprite sprite) {
         this.reader = new Reader();
@@ -70,6 +76,14 @@ public class Engine{
         }
     }
 
+
+    private void playAudioClip(){
+        if(isPressed(KeyCode.LEFT))  { playiSound0(); }
+        if(isPressed(KeyCode.RIGHT)) { playiSound1(); }
+        if(isPressed(KeyCode.UP))    { playiSound2(); }
+        if(isPressed(KeyCode.DOWN))  { playiSound3(); }
+    }
+
     private boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
 
@@ -108,4 +122,29 @@ public class Engine{
         }
         return current.getBoundsInParent().intersects(sprite.getImageView().getBoundsInParent());
     }
+
+    private void loadAudioAssets() {
+        iAudioFile0 = getClass().getResource("../data/sounds/leftmono.wav");
+        iSound0 = new AudioClip(iAudioFile0.toString());
+        iAudioFile1 = getClass().getResource("../data/sounds/rightmono.wav");
+        iSound1 = new AudioClip(iAudioFile1.toString());
+        iAudioFile2 = getClass().getResource("../data/sounds/upmono.wav");
+        iSound2 = new AudioClip(iAudioFile2.toString());
+        iAudioFile3 = getClass().getResource("../data/sounds/downmono.wav");
+        iSound3 = new AudioClip(iAudioFile3.toString());
+    }
+    public void playiSound0() {
+        iSound0.play();
+    }
+    public void playiSound1() {
+        this.iSound1.play();
+    }
+    public void playiSound2() {
+        this.iSound2.play();
+    }
+    public void playiSound3() {
+        this.iSound3.play();
+    }
+
+
 }
