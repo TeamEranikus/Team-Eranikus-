@@ -38,15 +38,26 @@ public class PuzzlesController implements Initializable {
         centerImage();
         this.hintText.setText(puzzle.getHint());
         this.description.setText(puzzle.getQuestion());
-        this.nextClue.setText(puzzle.getNextClue());
+        this.nextClue.setText("Incorrect answer!");
 
     }
 
     public void giveHint(ActionEvent actionEvent) {
+        if(actionEvent.getSource()==hintButton) {
+            this.hintText.setVisible(true);
+        }
     }
 
 
     public void checkAnswer(ActionEvent actionEvent) {
+        String userAnswerString = this.userAnswer.getText().toLowerCase().trim();
+        if (puzzle.checkCorrectAnswer(userAnswerString)){
+            this.nextClue.setText(puzzle.getNextClue());
+            this.nextClue.setVisible(true);
+        }
+        else{
+            this.nextClue.setVisible(true);
+        }
     }
 
     private void centerImage() {
