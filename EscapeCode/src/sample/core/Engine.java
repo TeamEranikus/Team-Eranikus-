@@ -2,11 +2,15 @@ package sample.core;
 
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 import sample.models.PuzzleManager;
 import sample.userInterface.Reader;
 
@@ -14,10 +18,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
+
 import javafx.scene.media.AudioClip;
+
 import java.net.URL;
 
-public class Engine{
+public class Engine {
 
     private PuzzleManager puzzleManager;
     private Reader reader;
@@ -32,7 +38,6 @@ public class Engine{
     private URL iAudioFile0, iAudioFile1, iAudioFile2, iAudioFile3;
 
 
-
     public Engine(Sprite sprite) {
         this.reader = new Reader();
         this.puzzleManager = new PuzzleManager(reader);
@@ -44,12 +49,13 @@ public class Engine{
     public void run(Scene scene) throws IOException {
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
         scene.setOnKeyReleased(event -> keys.put(event.getCode(), false));
+        puzzleManager.load();
 
 
         timeline = new AnimationTimer() {
             @Override
             public void handle(long now) {
-               update();
+                update();
                 checkForCol(currentPuzzle);
             }
         };
@@ -72,16 +78,44 @@ public class Engine{
             currentPuzzle.setDisable(true);
             hasCol = true;
 
-            currentPuzzle = getCurrentPuzzleRectangle();
+            //TODO try to write new method to pop new window
+            //TODO check for correct answer and set the constants of paths
+            if (!currentPuzzle.getId().contains("door")) {
+                try {
+                    puzzleManager.setPuzzle();
+                    Stage stage = new Stage();
+                    Parent root = FXMLLoader.load(getClass().getResource("../scenes/demoLevel/puzzles/puzzles.fxml"));
+                    Scene scene = new Scene(root);
+                    stage.initOwner(currentPuzzle.getScene().getWindow());
+                    stage.setScene(scene);
+                    stage.show();
+                    currentPuzzle = getCurrentPuzzleRectangle();
+                } catch (IOException e) {
+
+                }
+            }else {
+                //TODO show win message
+
+            }
+
+
         }
     }
 
 
-    private void playAudioClip(){
-        if(isPressed(KeyCode.LEFT))  { playiSound0(); }
-        if(isPressed(KeyCode.RIGHT)) { playiSound1(); }
-        if(isPressed(KeyCode.UP))    { playiSound2(); }
-        if(isPressed(KeyCode.DOWN))  { playiSound3(); }
+    private void playAudioClip() {
+        if (isPressed(KeyCode.LEFT)) {
+            playiSound0();
+        }
+        if (isPressed(KeyCode.RIGHT)) {
+            playiSound1();
+        }
+        if (isPressed(KeyCode.UP)) {
+            playiSound2();
+        }
+        if (isPressed(KeyCode.DOWN)) {
+            playiSound3();
+        }
     }
 
     private boolean isPressed(KeyCode key) {
@@ -133,15 +167,19 @@ public class Engine{
         iAudioFile3 = getClass().getResource("../data/sounds/downmono.wav");
         iSound3 = new AudioClip(iAudioFile3.toString());
     }
+
     public void playiSound0() {
         iSound0.play();
     }
+
     public void playiSound1() {
         this.iSound1.play();
     }
+
     public void playiSound2() {
         this.iSound2.play();
     }
+
     public void playiSound3() {
         this.iSound3.play();
     }
