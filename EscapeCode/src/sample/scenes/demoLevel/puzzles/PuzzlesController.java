@@ -28,7 +28,9 @@ public class PuzzlesController implements Initializable {
     TextField userAnswer;
 
     private static Puzzle puzzle;
+
     public static void setPuzzle(Puzzle puzzleToSet){
+
         puzzle = puzzleToSet;
     }
 

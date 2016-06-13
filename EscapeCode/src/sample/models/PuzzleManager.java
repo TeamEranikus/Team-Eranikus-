@@ -37,7 +37,9 @@ public class PuzzleManager {
 
     public void setPuzzle(){
 
-        PuzzlesController.setPuzzle(puzzles.pop());
+        if (puzzles.size() > 0){
+            PuzzlesController.setPuzzle(puzzles.pop());
+        }
     }
 
 }

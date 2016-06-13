@@ -10,7 +10,7 @@ public class Reader {
     public LinkedList<String> readPuzzleFile() {
         LinkedList<String> lineFromFile = new LinkedList<>();
         try (BufferedReader reader =
-                     new BufferedReader(new FileReader(new File("src/sample/resources/templates/Puzzles.txt")))) {
+                     new BufferedReader(new FileReader(new File("EscapeCode/src/sample/resources/templates/Puzzles.txt")))) { //src/sample/resources/templates/Puzzles.txt
             String line;
             while ((line = reader.readLine()) != null){
                 lineFromFile.add(line);
