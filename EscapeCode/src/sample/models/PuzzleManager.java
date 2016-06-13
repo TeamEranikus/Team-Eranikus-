@@ -1,9 +1,9 @@
 package sample.models;
 
-import java.util.*;
-
 import sample.scenes.demoLevel.puzzles.PuzzlesController;
 import sample.userInterface.Reader;
+
+import java.util.LinkedList;
 
 public class PuzzleManager {
 
