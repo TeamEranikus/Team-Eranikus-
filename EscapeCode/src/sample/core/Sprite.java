@@ -31,9 +31,18 @@ public class Sprite {
         this.currentCanvas = canvas;
     }
 
+    public double getPositionX() {
+        return positionX;
+    }
+
+    public double getPositionY() {
+        return positionY;
+    }
+
     public void setPosition(double x, double y) {
         positionX = x;
         positionY = y;
+
     }
 
     public void moveX(int x) {
@@ -42,15 +51,29 @@ public class Sprite {
         for (int i = 0; i < Math.abs(x); i++) {
             if (right) {
                 double rightBound = currentCanvas.getLayoutX() + currentCanvas.getWidth() - (imageView.getX()+imageView.getFitWidth());
-                imageView.setLayoutX(imageView.getLayoutX() + 1 > rightBound ?
-                        rightBound : imageView.getLayoutX() + 1);
+                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+                if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
+                    imageView.setLayoutX(imageView.getLayoutX() + 1 > rightBound ?
+                            rightBound : imageView.getLayoutX() - 15);
+                } else {
+                    imageView.setLayoutX(imageView.getLayoutX() + 1 > rightBound ?
+                            rightBound : imageView.getLayoutX() + 1);
+                }
+
                 imageView.setImage(RIGHT_IMAGE_VIEW);
 
             } else {
 
                 double leftBound = currentCanvas.getLayoutX();
-                imageView.setLayoutX(imageView.getLayoutX() - 1 < leftBound ?
-                        leftBound : imageView.getLayoutX() - 1);
+                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+                if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
+                    imageView.setLayoutX(imageView.getLayoutX() - 1 < leftBound ?
+                            leftBound : imageView.getLayoutX() + 15);
+                } else {
+                    imageView.setLayoutX(imageView.getLayoutX() - 1 < leftBound ?
+                            leftBound : imageView.getLayoutX() - 1);
+                }
+
                 imageView.setImage(LEFT_IMAGE_VIEW);
             }
         }
@@ -63,15 +86,50 @@ public class Sprite {
             if (down) {
 
                 double downBound = currentCanvas.getLayoutY() + currentCanvas.getHeight() - (imageView.getY()+imageView.getFitHeight());
-                imageView.setLayoutY(imageView.getLayoutY() + 1 > downBound ?
-                        downBound : imageView.getLayoutY() + 1);
+                if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
+                    imageView.setLayoutY(imageView.getLayoutY() - 15);
+                } else {
+                    imageView.setLayoutY(imageView.getLayoutY() + 1 > downBound ?
+                            downBound : imageView.getLayoutY() + 1);
+                }
+                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+
             } else {
 
                 double upBound = currentCanvas.getLayoutY();
-                imageView.setLayoutY(imageView.getLayoutY() - 1 < upBound ?
-                        upBound : imageView.getLayoutY() - 1);
+                if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
+                    imageView.setLayoutY(imageView.getLayoutY() + 15);
+                } else {
+                    imageView.setLayoutY(imageView.getLayoutY() - 1 < upBound ?
+                            upBound : imageView.getLayoutY() - 1);
+                }
+                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
             }
         }
+    }
+
+    private boolean tryToMove(double layoutX, double layoutY) {
+        boolean desk = false;
+        boolean bottomRightObj = false;
+        boolean computer = false;
+        boolean piano = false;
+        boolean library = false;
+        if (layoutY < 167 && (layoutX > 368 && layoutX < 597)) {
+            desk = true;
+        }
+        if (layoutY > 425 && layoutX > 766) {
+            bottomRightObj = true;
+        }
+        if (layoutX < 260 && layoutY < 167) {
+            computer = true;
+        }
+        if (layoutY > 369 && layoutX < 265) {
+            piano = true;
+        }
+        if (layoutY < 220 && layoutX > 700 &&((layoutY - 135) + (800 - layoutX) < 100)) {
+            library = true;
+        }
+        return desk || bottomRightObj || computer || piano || library;
     }
 
     public void render(GraphicsContext gc) {
