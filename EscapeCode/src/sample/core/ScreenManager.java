@@ -60,5 +60,37 @@ public class ScreenManager {
         return fxmlLoader.getController();
     }
 
+    public Stage loadNewStage(String FXMLPath) throws IOException {
+        Stage primaryStage = new Stage();
+        primaryStage.setTitle(Constants.TITLE);
+        root = FXMLLoader.load(getClass().getResource("../scenes/" + FXMLPath));
+        Region contentRootRegion = (Region) FXMLLoader.load(getClass().getResource("../scenes/" + FXMLPath));
+        double origW = 1920.0;
+        double origH = 1080.0;
+
+        if (contentRootRegion.getPrefWidth() == contentRootRegion.USE_COMPUTED_SIZE){
+            contentRootRegion.setPrefWidth(origW);
+        } else {
+            origW = contentRootRegion.getPrefWidth();
+        }
+
+        if (contentRootRegion.getPrefHeight() == contentRootRegion.USE_COMPUTED_SIZE){
+            contentRootRegion.setPrefHeight(origH);
+        } else {
+            origH = contentRootRegion.getPrefHeight();
+        }
+        Group group = new Group(contentRootRegion);
+        StackPane rootPane = new StackPane();
+        rootPane.getChildren().add( group );
+        Scene scene = new Scene( rootPane, origW, origH );
+        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
+        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+        // primaryStage.setResizable(false);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+        primaryStage.centerOnScreen();
+        return primaryStage;
+    }
+
 }
 

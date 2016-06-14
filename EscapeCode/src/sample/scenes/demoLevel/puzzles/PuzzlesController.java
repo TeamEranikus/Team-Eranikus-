@@ -8,6 +8,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 import sample.models.Puzzle;
 
 import java.net.URL;
@@ -29,8 +30,9 @@ public class PuzzlesController implements Initializable {
 
     private static Puzzle puzzle;
 
-    public static void setPuzzle(Puzzle puzzleToSet){
+    private Stage currentStage;
 
+    public static void setPuzzle(Puzzle puzzleToSet){
         puzzle = puzzleToSet;
     }
 

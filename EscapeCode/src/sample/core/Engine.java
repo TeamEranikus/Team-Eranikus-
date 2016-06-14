@@ -2,26 +2,22 @@ package sample.core;
 
 import javafx.animation.AnimationTimer;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sample.models.PuzzleManager;
 import sample.userInterface.Reader;
+import sample.utils.Constants;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
-
-import javafx.scene.media.AudioClip;
-
-import java.net.URL;
 
 public class Engine {
 
@@ -33,6 +29,7 @@ public class Engine {
     private boolean hasCol = false;
     private AnimationTimer timeline;
     private Sprite sprite;
+    private ScreenManager screenManager;
 
     private AudioClip iSound0, iSound1, iSound2, iSound3;
     private URL iAudioFile0, iAudioFile1, iAudioFile2, iAudioFile3;
@@ -44,6 +41,7 @@ public class Engine {
         this.keys = new HashMap<>();
         this.sprite = sprite;
         this.rectangles = new LinkedList<>();
+        this.screenManager = new ScreenManager();
     }
 
     public void run(Scene scene) throws IOException {
@@ -83,13 +81,9 @@ public class Engine {
             if (!currentPuzzle.getId().contains("door")) {
                 try {
                     puzzleManager.setPuzzle();
-                    Stage stage = new Stage();
-                    Parent root = FXMLLoader.load(getClass().getResource("../scenes/demoLevel/puzzles/puzzles.fxml"));
-                    Scene scene = new Scene(root);
-                    stage.initOwner(currentPuzzle.getScene().getWindow());
-                    stage.setScene(scene);
-                    stage.show();
-                    currentPuzzle = getCurrentPuzzleRectangle();
+                    Stage currentStave = screenManager.loadNewStage(Constants.PUZZLE_FXML_PATH);
+                   //TODO
+                    keys.clear();
                 } catch (IOException e) {
 
                 }
@@ -97,12 +91,8 @@ public class Engine {
                 //TODO show win message
 
             }
-
-
         }
     }
-
-
     private void playAudioClip() {
         if (isPressed(KeyCode.LEFT)) {
             playiSound0();
