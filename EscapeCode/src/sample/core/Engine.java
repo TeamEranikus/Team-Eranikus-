@@ -91,6 +91,8 @@ public class Engine {
                 //TODO show win message
 
             }
+
+            currentPuzzle = getCurrentPuzzleRectangle();
         }
     }
     private void playAudioClip() {
