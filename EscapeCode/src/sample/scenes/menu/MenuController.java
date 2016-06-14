@@ -2,6 +2,9 @@ package sample.scenes.menu;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import sample.core.Engine;
@@ -39,10 +42,11 @@ public class MenuController {
     }
 
     public void onHowToPlayClicked(ActionEvent event) throws IOException {
-        currentStage = (Stage) howToPlayButton.getScene().getWindow();
-        screenManager = new ScreenManager();
-        currentController = screenManager.loadSceneToPrimaryStage(currentStage, Constants.HOW_TO_PLAY_FXML_PATH);
-
+        Stage stage = (Stage)howToPlayButton.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("../howToPlay/howToPlayScene.fxml"));
+        stage.setTitle("How to play");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void onQuitClicked(ActionEvent event) {
