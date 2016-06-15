@@ -15,6 +15,7 @@ import sample.utils.Constants;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.stream.Collectors;
@@ -25,6 +26,7 @@ public class Engine {
     private Reader reader;
     private HashMap<KeyCode, Boolean> keys;
     private LinkedList<Rectangle> rectangles;
+    private ArrayList<Rectangle> rectCollision;
     private Rectangle currentPuzzle;
     private boolean hasCol = false;
     private AnimationTimer timeline;
@@ -41,6 +43,7 @@ public class Engine {
         this.keys = new HashMap<>();
         this.sprite = sprite;
         this.rectangles = new LinkedList<>();
+        this.rectCollision = new ArrayList<>();
         this.screenManager = new ScreenManager();
     }
 
@@ -87,12 +90,37 @@ public class Engine {
     private void updateSpriteCoordinates() {
         if (isPressed(KeyCode.UP)) {
             sprite.moveY(-2);
+            checkBounds("U");
         } else if (isPressed(KeyCode.DOWN)) {
             sprite.moveY(2);
+            checkBounds("D");
         } else if (isPressed(KeyCode.RIGHT)) {
             sprite.moveX(2);
+            checkBounds("R");
         } else if (isPressed(KeyCode.LEFT)) {
             sprite.moveX(-2);
+            checkBounds("L");
+        }
+    }
+
+    private void checkBounds(String direction) {
+        for (Rectangle rectangle : rectCollision) {
+            if (checkForCol(rectangle)) {
+                switch (direction) {
+                    case "U":
+                        sprite.getImageView().setLayoutY(sprite.getImageView().getLayoutY() + 2);
+                        break;
+                    case "D":
+                        sprite.getImageView().setLayoutY(sprite.getImageView().getLayoutY() - 2);
+                        break;
+                    case "R":
+                        sprite.getImageView().setLayoutX(sprite.getImageView().getLayoutX() - 2);
+                        break;
+                    case "L":
+                        sprite.getImageView().setLayoutX(sprite.getImageView().getLayoutX() + 2);
+                        break;
+                }
+            }
         }
     }
 
@@ -116,7 +144,7 @@ public class Engine {
 
     }
 
-    public void loadRectangles(Pane pane) {
+    public void loadRectanglesPuzzles(Pane pane) {
 
         ObservableList<Node> listOfAllElements = pane.getChildren();
         for (Node element : listOfAllElements) {
@@ -131,6 +159,17 @@ public class Engine {
                 .sorted((a, b) -> a.getId().compareTo(b.getId()))
                 .collect(Collectors.toCollection(LinkedList<Rectangle>::new));
         currentPuzzle = getCurrentPuzzleRectangle();
+    }
+
+    public void loadRectanglesCollision(Pane pane) {
+        ObservableList<Node> listOfAllElements = pane.getChildren();
+        for (Node element : listOfAllElements) {
+            if (element != null && element.getId().endsWith("Col")) {
+                Rectangle current = (Rectangle) element;
+                rectCollision.add(current);
+            }
+        }
+
     }
 
     private Rectangle getCurrentPuzzleRectangle() {

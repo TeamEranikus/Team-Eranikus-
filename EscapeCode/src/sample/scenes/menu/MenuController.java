@@ -37,7 +37,8 @@ public class MenuController {
         currentController = screenManager.loadSceneToPrimaryStage(currentStage, Constants.DEMO_LEVEL_FXML_PATH);
         Sprite sprite = new Sprite(currentController.getImagePlayer(),currentController.getMainCanvas());
         Engine engine = new Engine(sprite);
-        engine.loadRectangles(currentController.getAnchorPane());
+        engine.loadRectanglesPuzzles(currentController.getAnchorPane());
+        engine.loadRectanglesCollision(currentController.getAnchorPane());
         engine.run(currentStage.getScene());
     }
 
