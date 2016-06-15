@@ -50,14 +50,15 @@ public class Sprite {
         boolean right = x > 0 ? true : false;
         for (int i = 0; i < Math.abs(x); i++) {
             if (right) {
-                double rightBound = currentCanvas.getLayoutX() + currentCanvas.getWidth() - (imageView.getX()+imageView.getFitWidth());
-                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+                double rightBound = currentCanvas.getLayoutX() + currentCanvas.getWidth() - (imageView.getX() + imageView.getFitWidth());
+                //System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+
+                imageView.setLayoutX(imageView.getLayoutX() + 1 > rightBound ?
+                        rightBound : imageView.getLayoutX() + 1);
+
                 if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
-                    imageView.setLayoutX(imageView.getLayoutX() + 1 > rightBound ?
-                            rightBound : imageView.getLayoutX() - 15);
-                } else {
-                    imageView.setLayoutX(imageView.getLayoutX() + 1 > rightBound ?
-                            rightBound : imageView.getLayoutX() + 1);
+
+                    imageView.setLayoutX(imageView.getLayoutX() - 2);
                 }
 
                 imageView.setImage(RIGHT_IMAGE_VIEW);
@@ -65,13 +66,14 @@ public class Sprite {
             } else {
 
                 double leftBound = currentCanvas.getLayoutX();
-                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+                //System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+
+                imageView.setLayoutX(imageView.getLayoutX() - 1 < leftBound ?
+                        leftBound : imageView.getLayoutX() - 1);
+
                 if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
-                    imageView.setLayoutX(imageView.getLayoutX() - 1 < leftBound ?
-                            leftBound : imageView.getLayoutX() + 15);
-                } else {
-                    imageView.setLayoutX(imageView.getLayoutX() - 1 < leftBound ?
-                            leftBound : imageView.getLayoutX() - 1);
+
+                    imageView.setLayoutX(imageView.getLayoutX() + 2);
                 }
 
                 imageView.setImage(LEFT_IMAGE_VIEW);
@@ -85,25 +87,31 @@ public class Sprite {
         for (int i = 0; i < Math.abs(y); i++) {
             if (down) {
 
-                double downBound = currentCanvas.getLayoutY() + currentCanvas.getHeight() - (imageView.getY()+imageView.getFitHeight());
+                double downBound = currentCanvas.getLayoutY() + currentCanvas.getHeight() - (imageView.getY() + imageView.getFitHeight());
+
+                imageView.setLayoutY(imageView.getLayoutY() + 1 > downBound ?
+                        downBound : imageView.getLayoutY() + 1);
+
                 if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
-                    imageView.setLayoutY(imageView.getLayoutY() - 15);
-                } else {
-                    imageView.setLayoutY(imageView.getLayoutY() + 1 > downBound ?
-                            downBound : imageView.getLayoutY() + 1);
+
+                    imageView.setLayoutY(imageView.getLayoutY() - 2);
                 }
-                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+
+                //System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
 
             } else {
 
                 double upBound = currentCanvas.getLayoutY();
+
+                imageView.setLayoutY(imageView.getLayoutY() - 1 < upBound ?
+                        upBound : imageView.getLayoutY() - 1);
+
                 if (tryToMove(imageView.getLayoutX(), imageView.getLayoutY())) {
-                    imageView.setLayoutY(imageView.getLayoutY() + 15);
-                } else {
-                    imageView.setLayoutY(imageView.getLayoutY() - 1 < upBound ?
-                            upBound : imageView.getLayoutY() - 1);
+
+                    imageView.setLayoutY(imageView.getLayoutY() + 2);
                 }
-                System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
+
+                //System.out.println(imageView.getLayoutY() + " " + imageView.getLayoutX());
             }
         }
     }

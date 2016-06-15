@@ -53,14 +53,38 @@ public class Engine {
         timeline = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                update();
-                checkForCol(currentPuzzle);
+                updateSpriteCoordinates();
+                hasCol = checkForCol(currentPuzzle);
+                if (hasCol) {
+                    currentPuzzle.setVisible(false);
+                    currentPuzzle.setDisable(true);
+                    setCurrentPuzzle();
+                    currentPuzzle = getCurrentPuzzleRectangle();
+                }
             }
         };
         timeline.start();
     }
 
-    private void update() {
+    private void setCurrentPuzzle() {
+        //TODO try to write new method to pop new window
+        //TODO check for correct answer and set the constants of paths
+        if (!currentPuzzle.getId().contains("door")) {
+            try {
+                puzzleManager.setPuzzle();
+                Stage currentStave = screenManager.loadNewStage(Constants.PUZZLE_FXML_PATH);
+                //TODO
+                keys.clear();
+            } catch (IOException e) {
+
+            }
+        } else {
+            //TODO show win message
+
+        }
+    }
+
+    private void updateSpriteCoordinates() {
         if (isPressed(KeyCode.UP)) {
             sprite.moveY(-2);
         } else if (isPressed(KeyCode.DOWN)) {
@@ -70,31 +94,8 @@ public class Engine {
         } else if (isPressed(KeyCode.LEFT)) {
             sprite.moveX(-2);
         }
-
-        if (checkForCol(currentPuzzle)) {
-            currentPuzzle.setVisible(false);
-            currentPuzzle.setDisable(true);
-            hasCol = true;
-
-            //TODO try to write new method to pop new window
-            //TODO check for correct answer and set the constants of paths
-            if (!currentPuzzle.getId().contains("door")) {
-                try {
-                    puzzleManager.setPuzzle();
-                    Stage currentStave = screenManager.loadNewStage(Constants.PUZZLE_FXML_PATH);
-                   //TODO
-                    keys.clear();
-                } catch (IOException e) {
-
-                }
-            }else {
-                //TODO show win message
-
-            }
-
-            currentPuzzle = getCurrentPuzzleRectangle();
-        }
     }
+
     private void playAudioClip() {
         if (isPressed(KeyCode.LEFT)) {
             playiSound0();
