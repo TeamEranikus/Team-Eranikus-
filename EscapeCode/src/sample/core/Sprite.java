@@ -1,7 +1,6 @@
 package sample.core;
 
 import javafx.geometry.Rectangle2D;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +14,7 @@ public class Sprite {
     private double positionX;
     private double positionY;
     private double width;
-    private Canvas currentCanvas;
+    private ResizableCanvas currentCanvas;
     private double height;
 
     public ImageView getImageView() {
@@ -26,7 +25,7 @@ public class Sprite {
         this.imageView = imageView;
     }
 
-    public Sprite(ImageView image, Canvas canvas) {
+    public Sprite(ImageView image, ResizableCanvas canvas) {
         this.imageView = image;
         this.currentCanvas = canvas;
     }

@@ -1,11 +1,11 @@
 package sample.core.interfaces;
 
-import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import sample.core.ResizableCanvas;
 
 public interface Controller {
-    Canvas getMainCanvas();
+    ResizableCanvas getMainCanvas();
 
     ImageView getImagePlayer();
 

@@ -19,27 +19,27 @@ public class ScreenManager {
         primaryStage.setTitle(Constants.TITLE);
         root = FXMLLoader.load(getClass().getResource("../scenes/" + FXMLPath));
         Region contentRootRegion = (Region) FXMLLoader.load(getClass().getResource("../scenes/" + FXMLPath));
-        double origW = 1920.0;
-        double origH = 1080.0;
+        double origW = Constants.FULL_HD_WIDTH;
+        double origH = Constants.FULL_HD_HIGH;
 
-        if (contentRootRegion.getPrefWidth() == contentRootRegion.USE_COMPUTED_SIZE){
+        if (contentRootRegion.getPrefWidth() == Region.USE_COMPUTED_SIZE) {
             contentRootRegion.setPrefWidth(origW);
         } else {
             origW = contentRootRegion.getPrefWidth();
         }
 
-        if (contentRootRegion.getPrefHeight() == contentRootRegion.USE_COMPUTED_SIZE){
+        if (contentRootRegion.getPrefHeight() == Region.USE_COMPUTED_SIZE) {
             contentRootRegion.setPrefHeight(origH);
         } else {
             origH = contentRootRegion.getPrefHeight();
         }
         Group group = new Group(contentRootRegion);
         StackPane rootPane = new StackPane();
-        rootPane.getChildren().add( group );
-        Scene scene = new Scene( rootPane, origW, origH );
-        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
-        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
-       // primaryStage.setResizable(false);
+        rootPane.getChildren().add(group);
+        Scene scene = new Scene(rootPane, origW, origH);
+        group.scaleXProperty().bind(scene.widthProperty().divide(origW));
+        group.scaleYProperty().bind(scene.heightProperty().divide(origH));
+        // primaryStage.setResizable(false);
         primaryStage.setScene(scene);
         primaryStage.show();
         primaryStage.centerOnScreen();
@@ -48,49 +48,66 @@ public class ScreenManager {
     public <T> T loadSceneToPrimaryStage(Stage currentStage, String FXMLPath) {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../scenes/" + FXMLPath));
         try {
-            Region region = FXMLLoader.load(getClass().getResource("../scenes/" + FXMLPath));
-            root = fxmlLoader.load();
-            //root.getChildren().add(region);
-            Scene scene = new Scene(root);
+            Region region = (Region) fxmlLoader.load();
+            double origW = Constants.FULL_HD_WIDTH;
+            double origH = Constants.FULL_HD_HIGH;
+
+            if (region.getPrefWidth() == Region.USE_COMPUTED_SIZE) {
+                region.setPrefWidth(origW);
+            } else {
+                origW = region.getPrefWidth();
+            }
+
+            if (region.getPrefHeight() == Region.USE_COMPUTED_SIZE) {
+                region.setPrefHeight(origH);
+            } else {
+                origH = region.getPrefHeight();
+            }
+            Group group = new Group(region);
+            StackPane rootPane = new StackPane();
+            rootPane.getChildren().add(group);
+            Scene scene = new Scene(rootPane, origW, origH);
+            group.scaleXProperty().bind(scene.widthProperty().divide(origW));
+            group.scaleYProperty().bind(scene.heightProperty().divide(origH));
             currentStage.setScene(scene);
         } catch (IOException e) {
             e.printStackTrace();
         }
         currentStage.show();
+        currentStage.centerOnScreen();
         return fxmlLoader.getController();
     }
 
     public Stage loadNewStage(String FXMLPath) throws IOException {
-        Stage primaryStage = new Stage();
-        primaryStage.setTitle(Constants.TITLE);
+        Stage newStage = new Stage();
+        newStage.setTitle(Constants.TITLE);
         root = FXMLLoader.load(getClass().getResource("../scenes/" + FXMLPath));
         Region contentRootRegion = (Region) FXMLLoader.load(getClass().getResource("../scenes/" + FXMLPath));
-        double origW = 1920.0;
-        double origH = 1080.0;
+        double origW = Constants.FULL_HD_WIDTH;
+        double origH = Constants.FULL_HD_HIGH;
 
-        if (contentRootRegion.getPrefWidth() == contentRootRegion.USE_COMPUTED_SIZE){
+        if (contentRootRegion.getPrefWidth() == Region.USE_COMPUTED_SIZE) {
             contentRootRegion.setPrefWidth(origW);
         } else {
             origW = contentRootRegion.getPrefWidth();
         }
 
-        if (contentRootRegion.getPrefHeight() == contentRootRegion.USE_COMPUTED_SIZE){
+        if (contentRootRegion.getPrefHeight() == Region.USE_COMPUTED_SIZE) {
             contentRootRegion.setPrefHeight(origH);
         } else {
             origH = contentRootRegion.getPrefHeight();
         }
         Group group = new Group(contentRootRegion);
         StackPane rootPane = new StackPane();
-        rootPane.getChildren().add( group );
-        Scene scene = new Scene( rootPane, origW, origH );
-        group.scaleXProperty().bind( scene.widthProperty().divide( origW ) );
-        group.scaleYProperty().bind( scene.heightProperty().divide( origH ) );
+        rootPane.getChildren().add(group);
+        Scene scene = new Scene(rootPane, origW, origH);
+        group.scaleXProperty().bind(scene.widthProperty().divide(origW));
+        group.scaleYProperty().bind(scene.heightProperty().divide(origH));
         // primaryStage.setResizable(false);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        primaryStage.centerOnScreen();
-        return primaryStage;
+        newStage.setScene(scene);
+        newStage.show();
+        newStage.centerOnScreen();
+        return newStage;
     }
-
 }
 

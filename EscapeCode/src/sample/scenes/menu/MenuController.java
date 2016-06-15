@@ -31,6 +31,10 @@ public class MenuController {
     private Controller currentController;
     private ScreenManager screenManager;
 
+    public Stage getCurrentStage() {
+        return currentStage;
+    }
+
     public void onNewGameClicked(ActionEvent event) throws IOException {
         currentStage = (Stage) newGameButton.getScene().getWindow();
         screenManager = new ScreenManager();
@@ -39,6 +43,7 @@ public class MenuController {
         Engine engine = new Engine(sprite);
         engine.loadRectanglesPuzzles(currentController.getAnchorPane());
         engine.loadRectanglesCollision(currentController.getAnchorPane());
+        engine.setCurrentLoadedStage(currentStage);
         engine.run(currentStage.getScene());
     }
 

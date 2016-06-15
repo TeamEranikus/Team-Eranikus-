@@ -9,6 +9,7 @@ public class Constants {
             System.getProperty("user.dir") : System.getProperty("user.dir") + "/EscapeCode") +
             "/src/sample/resources/templates/Puzzles.txt";
     public static final String PUZZLE_FXML_PATH = "demoLevel/puzzles/puzzles.fxml";
-    //public static final String PUZZLE_FILE = System.getProperty("user.dir") + "/src/sample/resources/templates/Puzzles.txt";
-    public static  boolean IS_ANSWER_CORRECT = false;
+    public static boolean IS_ANSWER_CORRECT = false;
+    public static double FULL_HD_WIDTH = 1920.0D;
+    public static double FULL_HD_HIGH = 1080.0D;
 }

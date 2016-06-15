@@ -3,9 +3,9 @@ package sample.scenes.demoLevel;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.canvas.Canvas;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import sample.core.ResizableCanvas;
 import sample.core.interfaces.Controller;
 
 import java.net.URL;
@@ -17,11 +17,10 @@ public class DemoController implements Initializable, Controller{
     private ImageView imagePlayer;
     @FXML
     private AnchorPane anchorPane;
-
     @FXML
-    private Canvas mainCanvas;
+    private ResizableCanvas mainCanvas;
 
-    public Canvas getMainCanvas() {
+    public ResizableCanvas getMainCanvas() {
         return mainCanvas;
     }
 
@@ -43,7 +42,6 @@ public class DemoController implements Initializable, Controller{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
     }
 
     //Try to use Hbox with buttons for the bottom bar

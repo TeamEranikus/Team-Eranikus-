@@ -35,11 +35,11 @@ public class Engine {
     private Sprite sprite;
     private ScreenManager screenManager;
     private PuzzlesController puzzlesController;
+    private Stage currentLoadedStage;
 
-    private AudioClip iSound0, iSound1, iSound2, iSound3,iSoundBackground;
-    private URL iAudioFile0, iAudioFile1, iAudioFile2, iAudioFile3,iAudioFileBackground;
+    private AudioClip iSound0, iSound1, iSound2, iSound3, iSoundBackground;
 
-
+    private URL iAudioFile0, iAudioFile1, iAudioFile2, iAudioFile3, iAudioFileBackground;
     public Engine(Sprite sprite) {
         this.reader = new Reader();
         this.puzzleManager = new PuzzleManager(reader);
@@ -50,6 +50,7 @@ public class Engine {
         this.screenManager = new ScreenManager();
         this.puzzlesController = new PuzzlesController();
     }
+
 
     public void run(Scene scene) throws IOException {
         scene.setOnKeyPressed(event -> keys.put(event.getCode(), true));
@@ -83,26 +84,29 @@ public class Engine {
         timeline.start();
     }
 
+    public Stage getCurrentLoadedStage() {
+        return currentLoadedStage;
+    }
+
+    public void setCurrentLoadedStage(Stage currentLoadedStage) {
+        this.currentLoadedStage = currentLoadedStage;
+    }
+
     private void setCurrentPuzzle() {
-        //TODO try to write new method to pop new window
-        //TODO check for correct answer and set the constants of paths
         if (!currentPuzzle.getId().contains("door")) {
             try {
                 if (hasToSetPuzzle) {
                     hasToSetPuzzle = false;
                     puzzleManager.setPuzzle();
                 }
-
-
-                Stage currentStave = screenManager.loadNewStage(Constants.PUZZLE_FXML_PATH);
-                //TODO
+                screenManager.loadNewStage(Constants.PUZZLE_FXML_PATH);
                 keys.clear();
             } catch (IOException e) {
-
+                //TODO message error pop-up
             }
         } else {
-            //TODO show win message
-
+            timeline.stop();
+            screenManager.loadSceneToPrimaryStage(getCurrentLoadedStage(),Constants.MENU_FXML_PATH);
         }
     }
 
@@ -144,15 +148,11 @@ public class Engine {
         }
     }
 
-
-
     private boolean isPressed(KeyCode key) {
         return keys.getOrDefault(key, false);
-
     }
 
     public void loadRectanglesPuzzles(Pane pane) {
-
         ObservableList<Node> listOfAllElements = pane.getChildren();
         for (Node element : listOfAllElements) {
             if (element != null && element.getId().endsWith("Puzzle")) {
@@ -196,12 +196,20 @@ public class Engine {
         return current.getBoundsInParent().intersects(sprite.getImageView().getBoundsInParent());
     }
 
-    private void playAudioClip(){
+    private void playAudioClip() {
         loadAudioAssets();
-        if(isPressed(KeyCode.UP))  { iSound2.play(); }
-        if(isPressed(KeyCode.DOWN)) { iSound3.play(); }
-        if(isPressed(KeyCode.LEFT))    { iSound0.play(); }
-        if(isPressed(KeyCode.RIGHT))  { iSound1.play(); }
+        if (isPressed(KeyCode.UP)) {
+            iSound2.play();
+        }
+        if (isPressed(KeyCode.DOWN)) {
+            iSound3.play();
+        }
+        if (isPressed(KeyCode.LEFT)) {
+            iSound0.play();
+        }
+        if (isPressed(KeyCode.RIGHT)) {
+            iSound1.play();
+        }
         iSoundBackground.setVolume(0.05);
         iSoundBackground.play();
     }
@@ -218,7 +226,6 @@ public class Engine {
         iAudioFileBackground = getClass().getResource("../data/sounds/snd_music.mp3");
         iSoundBackground = new AudioClip(iAudioFileBackground.toString());
     }
-
 
 
 }
