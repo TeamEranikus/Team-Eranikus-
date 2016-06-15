@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import sample.models.Puzzle;
+import sample.utils.Constants;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -32,6 +33,7 @@ public class PuzzlesController implements Initializable {
 
     private Stage currentStage;
 
+
     public static void setPuzzle(Puzzle puzzleToSet){
         puzzle = puzzleToSet;
     }
@@ -43,6 +45,7 @@ public class PuzzlesController implements Initializable {
         this.hintText.setText(puzzle.getHint());
         this.description.setText(puzzle.getQuestion());
         this.nextClue.setText("Incorrect answer!");
+
 
     }
 
@@ -58,6 +61,7 @@ public class PuzzlesController implements Initializable {
         if (puzzle.checkCorrectAnswer(userAnswerString)){
             this.nextClue.setText(puzzle.getNextClue());
             this.nextClue.setVisible(true);
+            Constants.IS_ANSWER_CORRECT = true;
         }
         else{
             this.nextClue.setVisible(true);

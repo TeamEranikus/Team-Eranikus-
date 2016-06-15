@@ -10,5 +10,5 @@ public class Constants {
             "/src/sample/resources/templates/Puzzles.txt";
     public static final String PUZZLE_FXML_PATH = "demoLevel/puzzles/puzzles.fxml";
     //public static final String PUZZLE_FILE = System.getProperty("user.dir") + "/src/sample/resources/templates/Puzzles.txt";
-
+    public static  boolean IS_ANSWER_CORRECT = false;
 }

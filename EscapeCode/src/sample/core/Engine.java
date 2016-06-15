@@ -10,6 +10,7 @@ import javafx.scene.media.AudioClip;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import sample.models.PuzzleManager;
+import sample.scenes.demoLevel.puzzles.PuzzlesController;
 import sample.userInterface.Reader;
 import sample.utils.Constants;
 
@@ -29,9 +30,11 @@ public class Engine {
     private ArrayList<Rectangle> rectCollision;
     private Rectangle currentPuzzle;
     private boolean hasCol = false;
+    private boolean hasToSetPuzzle = true;
     private AnimationTimer timeline;
     private Sprite sprite;
     private ScreenManager screenManager;
+    private PuzzlesController puzzlesController;
 
     private AudioClip iSound0, iSound1, iSound2, iSound3;
     private URL iAudioFile0, iAudioFile1, iAudioFile2, iAudioFile3;
@@ -45,6 +48,7 @@ public class Engine {
         this.rectangles = new LinkedList<>();
         this.rectCollision = new ArrayList<>();
         this.screenManager = new ScreenManager();
+        this.puzzlesController = new PuzzlesController();
     }
 
     public void run(Scene scene) throws IOException {
@@ -56,13 +60,23 @@ public class Engine {
         timeline = new AnimationTimer() {
             @Override
             public void handle(long now) {
+
                 updateSpriteCoordinates();
                 hasCol = checkForCol(currentPuzzle);
+
                 if (hasCol) {
+                    setCurrentPuzzle();
+                    sprite.getImageView().setLayoutX(480.0);
+                    sprite.getImageView().setLayoutY(300.0);
+
+                }
+                if (Constants.IS_ANSWER_CORRECT) {
                     currentPuzzle.setVisible(false);
                     currentPuzzle.setDisable(true);
-                    setCurrentPuzzle();
+                    rectangles.removeFirst();
                     currentPuzzle = getCurrentPuzzleRectangle();
+                    Constants.IS_ANSWER_CORRECT = false;
+                    hasToSetPuzzle = true;
                 }
             }
         };
@@ -74,7 +88,12 @@ public class Engine {
         //TODO check for correct answer and set the constants of paths
         if (!currentPuzzle.getId().contains("door")) {
             try {
-                puzzleManager.setPuzzle();
+                if (hasToSetPuzzle) {
+                    hasToSetPuzzle = false;
+                    puzzleManager.setPuzzle();
+                }
+
+
                 Stage currentStave = screenManager.loadNewStage(Constants.PUZZLE_FXML_PATH);
                 //TODO
                 keys.clear();
@@ -174,7 +193,7 @@ public class Engine {
 
     private Rectangle getCurrentPuzzleRectangle() {
         if (rectangles.size() > 0) {
-            Rectangle current = rectangles.removeFirst();
+            Rectangle current = rectangles.peekFirst();
             current.setVisible(true);
             current.setDisable(false);
             return current;
